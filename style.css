@@ -1,0 +1,96 @@
+/* Custom Premium Dark Theme */
+:root {
+    --bg-dark: #121212;
+    --card-bg: #1e1e1e;
+    --input-bg: #2b2b2b;
+    --border-color: #333333;
+    --text-primary: #f8f9fa;
+    --text-muted: #a0a0a0;
+    --accent: #0d6efd;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark) !important;
+    color: var(--text-primary);
+}
+
+/* Typography tweaks */
+.tracking-wide {
+    letter-spacing: 0.05em;
+}
+
+/* Card Styling */
+.custom-card {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Input Fields */
+.custom-input {
+    background-color: var(--input-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+    border-radius: 8px;
+    padding: 0.6rem 0.75rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-input:focus {
+    background-color: #333 !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+}
+
+/* Make the calendar icon visible on dark backgrounds */
+.custom-input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+/* Textarea Output - Configured for Auto-Stretch */
+.custom-textarea {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    background-color: #161616 !important;
+    color: #e0e0e0 !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 12px;
+    resize: none; /* Disables manual dragging */
+    overflow: hidden; /* Hides the scrollbar */
+    min-height: 150px; /* Starts small */
+    padding: 1.5rem;
+    box-sizing: border-box;
+    transition: height 0.1s ease-out; /* Smooth stretching animation */
+}
+
+.custom-textarea:focus {
+    box-shadow: none !important;
+    border-color: #444 !important;
+}
+
+/* Scrollbar Customization (for the rest of the page if needed) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Button overrides */
+.btn {
+    border-radius: 8px;
+}
