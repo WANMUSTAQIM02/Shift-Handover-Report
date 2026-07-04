@@ -101,33 +101,53 @@ document.addEventListener("DOMContentLoaded", () => {
             let ticketDate;
 
             if (typeof dateCol === 'number') {
-                const excelEpoch = dayjs('1899-12-30');
-                ticketDate = excelEpoch.add(dateCol, 'day');
+                // Selesaikan masalah Excel Decimal 
+                const excelEpoch = new Date(Date.UTC(1899, 11, 30));
+                const ms = Math.round(dateCol * 24 * 60 * 60 * 1000);
+                const jsDate = new Date(excelEpoch.getTime() + ms);
+                ticketDate = dayjs(`${jsDate.getUTCFullYear()}-${jsDate.getUTCMonth()+1}-${jsDate.getUTCDate()} ${jsDate.getUTCHours()}:${jsDate.getUTCMinutes()}`);
             } else {
-                const dateStr = dateCol.toString();
-                const match = dateStr.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2})/);
+                const dateStr = dateCol.toString().replace(/[\n\r]+/g, ' ').replace(/\s+/g, ' ').trim();
+                const match = dateStr.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})\s+(\d{1,2}):(\d{2})/);
                 
                 if (match) {
-                    let day = parseInt(match[1]);
-                    let month = parseInt(match[2]);
+                    let part1 = parseInt(match[1]);
+                    let part2 = parseInt(match[2]);
                     let year = parseInt(match[3]);
                     let hour = parseInt(match[4]);
                     let min = parseInt(match[5]);
                     
+                    // SMART DATE LOGIC: Kesan format US (MM/DD) vs format Malaysia (DD/MM)
+                    const expectedMonth = dayjs(reportDateVal).month() + 1;
+                    const expectedMonthNext = dayjs(reportDateVal).add(1, 'day').month() + 1;
+                    
+                    let day, month;
+                    if (part2 === expectedMonth || part2 === expectedMonthNext) {
+                        day = part1; month = part2; // DD/MM (Malaysia)
+                    } else if (part1 === expectedMonth || part1 === expectedMonthNext) {
+                        month = part1; day = part2; // MM/DD (US)
+                    } else {
+                        day = part1; month = part2; // Default fallback
+                    }
+
                     const isPM = /PM/i.test(dateStr);
                     const isAM = /AM/i.test(dateStr);
+                    const hasAmPm = isPM || isAM;
                     
                     if (isPM && hour < 12) hour += 12;
                     if (isAM && hour === 12) hour = 0;
                     
-                    if (!isPM && !isAM) {
+                    if (!hasAmPm) {
                         if (shiftVal === 'AM' && hour >= 1 && hour <= 6) hour += 12;
-                        if (shiftVal === 'PM' && hour >= 7 && hour <= 11) hour += 12;
+                        if (shiftVal === 'PM') {
+                            if (hour >= 7 && hour <= 11) hour += 12;
+                            if (hour === 12) hour = 0; // Betulkan logik 12:00 tengah malam
+                        }
                     }
                     
                     ticketDate = dayjs(`${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hour.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}`);
                 } else {
-                    ticketDate = dayjs(''); 
+                    ticketDate = dayjs(dateStr); 
                 }
             }
             
@@ -148,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (total === 0) {
-            showAlert('No records found for the selected date and shift.', 'warning');
+            showAlert('No records found for the selected date and shift. Format checked.', 'warning');
         }
 
         generateOutputString(reportDateVal, shiftVal, total, closed, inProgressTexts, resolvedTexts);
@@ -195,7 +215,6 @@ document.addEventListener("DOMContentLoaded", () => {
         outputText.value = output;
 
         // BULLETPROOF AUTO-RESIZE TRICK
-        // Force the box to collapse to 0px for a microsecond so the browser recalculates the true scrollHeight
         outputText.style.height = '0px'; 
         outputText.style.height = (outputText.scrollHeight) + 'px';
 
