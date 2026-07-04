@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let output = `Date: ${formattedDate}\n`;
         output += `Shift ${shiftVal} : ${eng1} & ${eng2}\n\n`;
         
-        output += `====================================================\n\n`;
+        output += `==========================\n\n`;
         
         output += `Total : ${total}\n`;
         output += `Closed : ${closed}\n\n`;
@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
             output += '\n';
         }
         
-        output += `====================================================\n\n`;
+        output += `==========================\n\n`;
 
         output += `Date: ${nextShiftDate}\n`;
         output += `Shift ${nextShift} : ${nextEng1} & ${nextEng2}`;
