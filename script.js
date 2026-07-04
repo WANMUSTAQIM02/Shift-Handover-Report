@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const outputText = document.getElementById('outputText');
     const alertBox = document.getElementById('alertBox');
 
-    // --- 1. Load Engineers ---
+    // --- 1. Load Engineers & Initialize UI ---
     fetch('engineers.json')
         .then(response => response.json())
         .then(data => {
@@ -17,6 +17,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 eng2Select.add(new Option(engineer, engineer));
                 nextEng1Select.add(new Option(engineer, engineer));
                 nextEng2Select.add(new Option(engineer, engineer));
+            });
+
+            // Aktifkan Aesthetic Dropdown (Choices.js)
+            const allSelects = document.querySelectorAll('select.glass-input');
+            allSelects.forEach(select => {
+                new Choices(select, {
+                    searchEnabled: false,
+                    itemSelectText: '',
+                    shouldSort: false
+                });
             });
         })
         .catch(err => showAlert('Error loading engineers.json. Make sure the file exists.', 'danger'));
@@ -101,7 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
             let ticketDate;
 
             if (typeof dateCol === 'number') {
-                // Selesaikan masalah Excel Decimal 
                 const excelEpoch = new Date(Date.UTC(1899, 11, 30));
                 const ms = Math.round(dateCol * 24 * 60 * 60 * 1000);
                 const jsDate = new Date(excelEpoch.getTime() + ms);
@@ -117,17 +126,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     let hour = parseInt(match[4]);
                     let min = parseInt(match[5]);
                     
-                    // SMART DATE LOGIC: Kesan format US (MM/DD) vs format Malaysia (DD/MM)
                     const expectedMonth = dayjs(reportDateVal).month() + 1;
                     const expectedMonthNext = dayjs(reportDateVal).add(1, 'day').month() + 1;
                     
                     let day, month;
                     if (part2 === expectedMonth || part2 === expectedMonthNext) {
-                        day = part1; month = part2; // DD/MM (Malaysia)
+                        day = part1; month = part2; 
                     } else if (part1 === expectedMonth || part1 === expectedMonthNext) {
-                        month = part1; day = part2; // MM/DD (US)
+                        month = part1; day = part2; 
                     } else {
-                        day = part1; month = part2; // Default fallback
+                        day = part1; month = part2; 
                     }
 
                     const isPM = /PM/i.test(dateStr);
@@ -141,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (shiftVal === 'AM' && hour >= 1 && hour <= 6) hour += 12;
                         if (shiftVal === 'PM') {
                             if (hour >= 7 && hour <= 11) hour += 12;
-                            if (hour === 12) hour = 0; // Betulkan logik 12:00 tengah malam
+                            if (hour === 12) hour = 0;
                         }
                     }
                     
@@ -168,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (total === 0) {
-            showAlert('No records found for the selected date and shift. Format checked.', 'warning');
+            showAlert('No records found for the selected date and shift.', 'warning');
         }
 
         generateOutputString(reportDateVal, shiftVal, total, closed, inProgressTexts, resolvedTexts);

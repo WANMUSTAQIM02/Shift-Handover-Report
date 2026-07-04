@@ -1,96 +1,321 @@
-/* Custom Premium Dark Theme */
+/* =========================================
+   AESTHETIC GLASSMORPHISM & JELLY THEME
+   ========================================= */
+
 :root {
-    --bg-dark: #121212;
-    --card-bg: #1e1e1e;
-    --input-bg: #2b2b2b;
-    --border-color: #333333;
-    --text-primary: #f8f9fa;
-    --text-muted: #a0a0a0;
-    --accent: #0d6efd;
+    /* Warna Asas Gelap */
+    --bg-base: #030014;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-highlight: rgba(255, 255, 255, 0.05);
+    
+    /* Warna Teks */
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    
+    /* Kecerunan (Gradient) Premium */
+    --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    --accent-hover: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+    
+    /* Warna Aksen */
+    --primary-color: #818cf8;
+    --success-color: #34d399;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-dark) !important;
-    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
 }
 
-/* Typography tweaks */
-.tracking-wide {
-    letter-spacing: 0.05em;
+/* --- GLOWING BACKGROUND ORBS --- */
+.bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: 0;
+    opacity: 0.4;
+    animation: float 10s infinite alternate ease-in-out;
+}
+.orb-1 {
+    top: -10%; left: -5%;
+    width: 40vw; height: 40vw;
+    background: #4f46e5;
+}
+.orb-2 {
+    bottom: -10%; right: -5%;
+    width: 35vw; height: 35vw;
+    background: #9333ea;
+    animation-delay: -5s;
+}
+.orb-3 {
+    top: 40%; left: 40%;
+    width: 20vw; height: 20vw;
+    background: #0ea5e9;
+    opacity: 0.2;
 }
 
-/* Card Styling */
-.custom-card {
-    background-color: var(--card-bg);
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+@keyframes float {
+    0% { transform: translateY(0px) scale(1); }
+    100% { transform: translateY(30px) scale(1.05); }
 }
 
-/* Input Fields */
-.custom-input {
-    background-color: var(--input-bg) !important;
-    border: 1px solid var(--border-color) !important;
-    color: var(--text-primary) !important;
-    border-radius: 8px;
-    padding: 0.6rem 0.75rem;
-    transition: all 0.2s ease-in-out;
+/* --- TYPOGRAPHY & HEADER --- */
+.tracking-tight { letter-spacing: -0.03em; }
+.text-muted-aesthetic { color: var(--text-muted); }
+.text-primary-aesthetic { color: var(--primary-color); letter-spacing: 2px; font-size: 0.75rem;}
+.text-success-aesthetic { color: var(--success-color); letter-spacing: 2px; font-size: 0.75rem;}
+
+.logo-wrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: var(--accent-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
 }
 
-.custom-input:focus {
-    background-color: #333 !important;
-    border-color: var(--accent) !important;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+/* --- GLASSMORPHISM CARDS --- */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 28px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-/* Make the calendar icon visible on dark backgrounds */
-.custom-input::-webkit-calendar-picker-indicator {
+/* --- INPUT FIELDS & JELLY ANIMATION --- */
+.glass-input {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: var(--text-main) !important;
+    border-radius: 14px;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); 
+    transform-origin: center;
+    color-scheme: dark; /* Paksa Kalendar Browser jadi Dark Mode */
+}
+
+.glass-input:hover {
+    transform: translateY(-2px) scale(1.01);
+    background: rgba(0, 0, 0, 0.25) !important;
+}
+
+.glass-input:active {
+    transform: scale(0.96);
+    transition: transform 0.1s ease-out;
+}
+
+.glass-input:focus {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15) !important;
+    transform: translateY(-2px) scale(1.02);
+}
+
+.glass-input::-webkit-calendar-picker-indicator {
     filter: invert(1);
-    opacity: 0.6;
+    opacity: 0.5;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.glass-input::-webkit-calendar-picker-indicator:hover {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.file-input {
+    font-size: 0.85rem;
+    color: var(--text-muted) !important;
+}
+.file-input::file-selector-button {
+    background: var(--glass-highlight);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    margin-right: 1rem;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     cursor: pointer;
 }
+.file-input::file-selector-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+}
+.file-input::file-selector-button:active {
+    transform: scale(0.9);
+}
 
-/* Textarea Output - Configured for Auto-Stretch */
-.custom-textarea {
+/* --- AESTHETIC BUTTONS (JELLY EFFECT) --- */
+.btn-aesthetic {
+    background: var(--accent-gradient);
+    border: none;
+    color: white;
+    border-radius: 14px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.btn-aesthetic:hover {
+    background: var(--accent-hover);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(168, 85, 247, 0.4) !important;
+    color: white;
+}
+.btn-aesthetic:active {
+    transform: scale(0.95);
+    box-shadow: 0 5px 10px rgba(168, 85, 247, 0.3) !important;
+    transition: all 0.1s ease-out;
+}
+
+.btn-glass-success {
+    background: rgba(52, 211, 153, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    color: var(--success-color);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.btn-glass-success:hover:not(:disabled) {
+    background: rgba(52, 211, 153, 0.2);
+    color: #fff;
+    transform: scale(1.05);
+}
+.btn-glass-success:active:not(:disabled) {
+    transform: scale(0.9);
+}
+.btn-glass-success:disabled {
+    opacity: 0.4;
+    border-color: transparent;
+}
+
+/* --- TERMINAL OUTPUT TEXTAREA --- */
+.glass-textarea {
     font-family: 'Consolas', 'Courier New', monospace;
     font-size: 14px;
-    line-height: 1.6;
-    background-color: #161616 !important;
-    color: #e0e0e0 !important;
-    border: 1px solid var(--border-color) !important;
-    border-radius: 12px;
-    resize: none; /* Disables manual dragging */
-    overflow: hidden; /* Hides the scrollbar */
-    min-height: 150px; /* Starts small */
+    line-height: 1.7;
+    background: rgba(0, 0, 0, 0.3) !important;
+    color: #e2e8f0 !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 16px;
+    resize: none;
+    overflow: hidden;
+    min-height: 200px;
     padding: 1.5rem;
     box-sizing: border-box;
-    transition: height 0.1s ease-out; /* Smooth stretching animation */
+    transition: height 0.1s ease-out, border-color 0.3s;
 }
-
-.custom-textarea:focus {
+.glass-textarea:focus {
     box-shadow: none !important;
-    border-color: #444 !important;
+    border-color: var(--glass-highlight) !important;
 }
 
-/* Scrollbar Customization (for the rest of the page if needed) */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-dark);
-}
-
+/* --- SLEEK SCROLLBAR --- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-    background: #444;
-    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* --- ALERT BOX --- */
+.alert {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    backdrop-filter: blur(10px);
+}
+.alert-success {
+    background: rgba(52, 211, 153, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    color: #6ee7b7;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
+/* =========================================
+   CHOICES.JS CUSTOM AESTHETIC DROPDOWN 
+   ========================================= */
+
+.choices {
+    margin-bottom: 0;
+}
+.choices__inner {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 14px !important;
+    color: var(--text-main) !important;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding: 0.6rem 1rem !important;
+    min-height: auto !important;
+    font-size: 0.95rem;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    box-shadow: none !important;
+}
+.choices:hover .choices__inner {
+    transform: translateY(-2px) scale(1.01);
+    background: rgba(0, 0, 0, 0.25) !important;
+}
+.choices.is-open .choices__inner {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15) !important;
+    transform: translateY(-2px) scale(1.02);
+    border-radius: 14px !important;
+}
+.choices[data-type*="select-one"]::after {
+    border-color: var(--text-muted) transparent transparent transparent !important;
+    right: 16px !important;
+    margin-top: -2px !important;
+    transition: all 0.3s ease !important;
+}
+.choices[data-type*="select-one"].is-open::after {
+    border-color: transparent transparent var(--primary-color) transparent !important;
+    margin-top: -8px !important;
+}
+.choices__list--dropdown {
+    background: rgba(15, 17, 26, 0.75) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6) !important;
+    padding: 8px !important;
+    margin-top: 10px !important;
+    transform-origin: top;
+    animation: jellyDrop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    word-break: break-word;
+}
+@keyframes jellyDrop {
+    0% { opacity: 0; transform: scaleY(0.8) translateY(-10px); }
+    100% { opacity: 1; transform: scaleY(1) translateY(0); }
 }
 
-/* Button overrides */
-.btn {
-    border-radius: 8px;
+/* Teks dalam Senarai */
+.choices__list--dropdown .choices__item {
+    color: #94a3b8 !important;
+    border-radius: 10px !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important; /* Buang efek sliding */
+    padding: 10px 16px !important;
+    font-size: 0.95rem;
+}
+
+/* Hover Effect: Warna Gradient Sahaja (Tiada Slider) */
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+    background: var(--accent-gradient) !important;
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+/* Hilangkan Scrollbar (Slider Tepi) pada Dropdown */
+.choices__list--dropdown .choices__list::-webkit-scrollbar {
+    display: none !important;
+}
+.choices__list--dropdown .choices__list {
+    -ms-overflow-style: none !important; /* IE & Edge */
+    scrollbar-width: none !important; /* Firefox */
 }
