@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E2336"/>
+      <stop offset="100%" stop-color="#0F111A"/>
+    </linearGradient>
+    
+    <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F2FE"/>
+      <stop offset="100%" stop-color="#4FACFE"/>
+    </linearGradient>
+    
+    <linearGradient id="greenGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#43E97B"/>
+      <stop offset="100%" stop-color="#38F9D7"/>
+    </linearGradient>
+    
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="120" fill="url(#bgGradient)" />
+  <rect x="4" y="4" width="504" height="504" rx="116" fill="none" stroke="#2A3143" stroke-width="8"/>
+
+  <rect x="136" y="140" width="240" height="280" rx="36" fill="#283046" filter="url(#shadow)"/>
+  
+  <path d="M216 100 h80 a 24 24 0 0 1 24 24 v 16 a 24 24 0 0 1 -24 24 h-80 a 24 24 0 0 1 -24 -24 v-16 a 24 24 0 0 1 24 -24 z" fill="url(#blueGlow)" filter="url(#shadow)"/>
+  <circle cx="256" cy="132" r="12" fill="#1E2336" />
+
+  <path d="M180 290 L230 340 L340 220" fill="none" stroke="url(#greenGlow)" stroke-width="48" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow)"/>
+</svg>
