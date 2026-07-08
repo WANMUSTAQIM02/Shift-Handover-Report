@@ -1,36 +1,25 @@
-// =========================================
-// 1. ANTI-DEVTOOLS / PENGHALANG INSPECT
-// =========================================
 document.addEventListener('contextmenu', function(e) {
-    e.preventDefault(); // Halang Right-Click
+    e.preventDefault();
 });
 
 document.addEventListener('keydown', function(e) {
-    // Halang F12
     if (e.key === 'F12' || e.keyCode === 123) {
         e.preventDefault();
     }
-    // Halang Ctrl + Shift + I (Inspect)
     if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
         e.preventDefault();
     }
-    // Halang Ctrl + Shift + C (Inspect Element)
     if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c')) {
         e.preventDefault();
     }
-    // Halang Ctrl + Shift + J (Console)
     if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
         e.preventDefault();
     }
-    // Halang Ctrl + U (View Source)
     if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
         e.preventDefault();
     }
 });
 
-// =========================================
-// 2. SISTEM UTAMA (MAIN LOGIC)
-// =========================================
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById('reportForm');
     const eng1Select = document.getElementById('eng1');
@@ -41,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const outputText = document.getElementById('outputText');
     const alertBox = document.getElementById('alertBox');
 
-    // --- A. Load Engineers & Initialize UI ---
     fetch('engineers.json')
         .then(response => response.json())
         .then(data => {
@@ -52,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 nextEng2Select.add(new Option(engineer, engineer));
             });
 
-            // Aktifkan Aesthetic Dropdown (Choices.js)
             const allSelects = document.querySelectorAll('select.glass-input');
             allSelects.forEach(select => {
                 new Choices(select, {
@@ -64,7 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(err => showAlert('Error loading engineers.json. Make sure the file exists.', 'danger'));
 
-    // --- B. UI Helpers ---
     function showAlert(message, type) {
         alertBox.className = `alert alert-${type} mb-3`;
         alertBox.innerHTML = `<i class="fa-solid fa-circle-exclamation me-2"></i>${message}`;
@@ -72,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => alertBox.classList.add('d-none'), 5000);
     }
 
-    // --- C. Excel File Processing ---
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         
@@ -107,7 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
         reader.readAsArrayBuffer(fileInput);
     });
 
-    // --- D. Smart Date Engine & Ticketing Logic ---
     function processTickets(tickets) {
         if (tickets.length === 0) return showAlert('The uploaded Excel file is empty or formatted incorrectly.', 'danger');
 
@@ -144,8 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let ticketDate;
 
-            if (typeof dateCol === 'number') {
-                // Selesaikan masalah Excel Decimal 
+            if (typeof dateCol === 'number') { 
                 const excelEpoch = new Date(Date.UTC(1899, 11, 30));
                 const ms = Math.round(dateCol * 24 * 60 * 60 * 1000);
                 const jsDate = new Date(excelEpoch.getTime() + ms);
@@ -161,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     let hour = parseInt(match[4]);
                     let min = parseInt(match[5]);
                     
-                    // SMART DATE LOGIC: Kesan format US (MM/DD) vs format Malaysia (DD/MM)
                     const expectedMonth = dayjs(reportDateVal).month() + 1;
                     const expectedMonthNext = dayjs(reportDateVal).add(1, 'day').month() + 1;
                     
@@ -218,7 +200,6 @@ document.addEventListener("DOMContentLoaded", () => {
         generateOutputString(reportDateVal, shiftVal, total, closed, inProgressTexts, resolvedTexts);
     }
 
-    // --- E. Format Generator & Auto-Resize Textarea ---
     function generateOutputString(dateVal, shiftVal, total, closed, inProgressTexts, resolvedTexts) {
         const eng1 = document.getElementById('eng1').value;
         const eng2 = document.getElementById('eng2').value;
@@ -256,21 +237,17 @@ document.addEventListener("DOMContentLoaded", () => {
         output += `Date: ${nextShiftDate}\n`;
         output += `Shift ${nextShift} : ${nextEng1} & ${nextEng2}`;
 
-        // Set the text
         outputText.value = output;
 
-        // BULLETPROOF AUTO-RESIZE TRICK
         outputText.style.height = '0px'; 
         outputText.style.height = (outputText.scrollHeight) + 'px';
 
-        // Button states
         copyBtn.disabled = false;
         copyBtn.innerHTML = '<i class="fa-regular fa-copy me-1"></i> Copy Report';
         copyBtn.classList.remove('btn-outline-success');
         copyBtn.classList.add('btn-glass-success'); // Guna class butang custom kita
     }
 
-    // --- F. Clipboard API (Butang Copy) ---
     copyBtn.addEventListener('click', () => {
         navigator.clipboard.writeText(outputText.value).then(() => {
             copyBtn.innerHTML = '<i class="fa-solid fa-check me-1"></i> Copied!';
