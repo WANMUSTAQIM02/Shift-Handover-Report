@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
             output += '\n';
         }
 
-        output += `Resolve : ${resolve}\n`;
+        output += `Resolve :\n`;
         if (resolvedTexts.length > 0) {
             output += resolvedTexts.join('\n') + '\n\n';
         } else {
