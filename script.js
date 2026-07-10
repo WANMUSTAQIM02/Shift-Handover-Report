@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alertBox.className = `alert alert-${type} mb-3`;
         alertBox.innerHTML = `<i class="fa-solid fa-circle-exclamation me-2"></i>${message}`;
         alertBox.classList.remove('d-none');
-        setTimeout(() => alertBox.classList.add('d-none'), 5000);
+        setTimeout(() => alertBox.add('d-none'), 5000);
     }
 
     form.addEventListener('submit', (e) => {
@@ -241,8 +241,6 @@ document.addEventListener("DOMContentLoaded", () => {
         function typeWriter() {
             if (i < output.length) {
                 outputText.value += output.charAt(i);
-                outputText.style.height = '0px'; 
-                outputText.style.height = (outputText.scrollHeight) + 'px';
                 i++;
                 setTimeout(typeWriter, Math.random() * 8 + 2);
             } else {
