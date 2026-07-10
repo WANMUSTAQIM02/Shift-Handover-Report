@@ -10,7 +10,6 @@ document.addEventListener('keydown', function(e) {
     if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) e.preventDefault();
 });
 
-// Parameter kelajuan dikurangkan untuk elak pening
 const waveParams = { speed: 1.0, opacity: 0.4 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -183,10 +182,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Kesan Warp Speed memecut ke atas lurus
         tl.to(waveParams, { speed: 20.0, opacity: 0.8, duration: 0.8, ease: "power4.in" }, 0);
+        
+        // Config Form mengecil dan pudar
         tl.to(configCol, { 
-            x: -100, 
+            scale: 0.95,
             opacity: 0, 
             duration: 0.5, 
             ease: "power2.in",
@@ -197,13 +197,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }, 0.4);
 
+        // Terminal masuk dari skala kecil
         tl.fromTo(terminalCol, 
-            { x: 100, opacity: 0 }, 
-            { x: 0, opacity: 1, duration: 0.8, ease: "back.out(1.4)" }, 
+            { scale: 0.95, opacity: 0 }, 
+            { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.4)" }, 
             ">"
         );
 
-        // Kembali perlahan
         tl.to(waveParams, { speed: 1.0, opacity: 0.4, duration: 1.8, ease: "power4.out" }, "-=0.2");
     }
 
@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
         copyBtn.innerHTML = '<i class="fa-solid fa-terminal fa-fade me-1"></i> Compiling...';
         copyBtn.classList.remove('btn-glass-success');
         copyBtn.classList.add('btn-outline-secondary');
-        copyBtn.style.color = '#94b899';
+        copyBtn.style.color = '#94a3b8';
 
         let i = 0;
         function typeWriter() {
@@ -262,10 +262,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     backBtn.addEventListener('click', () => {
         const tl = gsap.timeline();
-        // Zarah undur ke belakang perlahan-lahan
         tl.to(waveParams, { speed: -15.0, opacity: 0.7, duration: 0.5, ease: "power3.in" }, 0);
+        
+        // Terminal mengecil dan pudar
         tl.to(terminalCol, { 
-            x: 100, 
+            scale: 0.95,
             opacity: 0, 
             duration: 0.5, 
             ease: "power2.in",
@@ -279,9 +280,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }, 0.2);
 
+        // Config Form masuk dari skala kecil
         tl.fromTo(configCol, 
-            { x: -100, opacity: 0 }, 
-            { x: 0, opacity: 1, duration: 0.8, ease: "back.out(1.4)" }, 
+            { scale: 0.95, opacity: 0 }, 
+            { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.4)" }, 
             ">"
         );
 
@@ -297,9 +299,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// ==========================================
-// BACKGROUND 3D BARU (TENANG & TAK MEMENINGKAN)
-// ==========================================
 const canvas = document.getElementById('bg-canvas');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -311,15 +310,13 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 const particleCount = 1000;
 const particleGeometry = new THREE.BufferGeometry();
 const positions = new Float32Array(particleCount * 3);
-const velocities = []; // Simpan kelajuan untuk setiap zarah
+const velocities = []; 
 
 for (let i = 0; i < particleCount; i++) {
-    // Taburan zarah yang rata di seluruh skrin
-    positions[i * 3] = (Math.random() - 0.5) * 30; // x
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 30; // y
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 15 - 5; // z
+    positions[i * 3] = (Math.random() - 0.5) * 30; 
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 30; 
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 15 - 5; 
 
-    // Pergerakan hanya ke atas (y) dan sedikit ke tepi (x)
     velocities.push({
         x: (Math.random() - 0.5) * 0.001,
         y: (Math.random() * 0.003) + 0.001
@@ -329,10 +326,10 @@ for (let i = 0; i < particleCount; i++) {
 particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
 const particleMaterial = new THREE.PointsMaterial({
-    size: 0.05,
+    size: 0.03,
     color: 0x818cf8,
     transparent: true,
-    opacity: 10.0,
+    opacity: 0.4,
     blending: THREE.AdditiveBlending
 });
 
@@ -341,7 +338,6 @@ scene.add(particles);
 
 camera.position.z = 5;
 
-// Mengurangkan sensitiviti pergerakan mouse supaya tak sakit mata
 let targetX = 0, targetY = 0;
 document.addEventListener('mousemove', (event) => {
     targetX = (event.clientX / window.innerWidth - 0.5) * 0.5;
@@ -353,7 +349,6 @@ function animate() {
     
     particleMaterial.opacity = waveParams.opacity;
 
-    // Gerakkan setiap zarah secara lurus
     const positionAttribute = particleGeometry.getAttribute('position');
     for (let i = 0; i < particleCount; i++) {
         let y = positionAttribute.getY(i);
@@ -362,9 +357,8 @@ function animate() {
         y += velocities[i].y * waveParams.speed;
         x += velocities[i].x * waveParams.speed;
         
-        // Kitar semula zarah bila terkeluar dari skrin
         if (y > 15) y = -15;
-        if (y < -15) y = 15; // Untuk kesan butang Back (reverse)
+        if (y < -15) y = 15; 
         if (x > 15) x = -15;
         if (x < -15) x = 15;
         
@@ -373,7 +367,6 @@ function animate() {
     }
     positionAttribute.needsUpdate = true;
 
-    // Kamera bergerak sangat perlahan mengikut mouse (Parallax ringan)
     camera.position.x += (targetX - camera.position.x) * 0.02;
     camera.position.y += (-targetY - camera.position.y) * 0.02;
     camera.lookAt(scene.position);
