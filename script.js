@@ -218,14 +218,14 @@ document.addEventListener("DOMContentLoaded", () => {
         output += `Total : ${total}\n`;
         output += `Closed : ${closed}\n\n`;
         
-        output += `In Progress :\n`;
+        output += `In Progress : ${total}\n`;
         if (inProgressTexts.length > 0) {
             output += inProgressTexts.join('\n') + '\n\n';
         } else {
             output += '\n';
         }
 
-        output += `Resolve :\n`;
+        output += `Resolve : ${total}\n`;
         if (resolvedTexts.length > 0) {
             output += resolvedTexts.join('\n') + '\n\n';
         } else {
