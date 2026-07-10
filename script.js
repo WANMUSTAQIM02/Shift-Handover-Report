@@ -117,8 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         let total = 0, closed = 0;
-        let inProgressTexts = 0;
-        let resolvedTexts = 0;
+        let inProgressTexts = [];
+        let resolvedTexts = [];
 
         tickets.forEach(ticket => {
             const statusCol = ticket['Request Status'] ? ticket['Request Status'].toString().trim().toLowerCase() : '';
