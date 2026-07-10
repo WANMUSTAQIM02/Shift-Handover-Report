@@ -183,8 +183,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         tl.to(waveParams, { speed: 20.0, opacity: 0.8, duration: 0.8, ease: "power4.in" }, 0);
-        
-        // Config Form mengecil dan pudar
         tl.to(configCol, { 
             scale: 0.95,
             opacity: 0, 
@@ -197,7 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }, 0.4);
 
-        // Terminal masuk dari skala kecil
         tl.fromTo(terminalCol, 
             { scale: 0.95, opacity: 0 }, 
             { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.4)" }, 
@@ -263,8 +260,6 @@ document.addEventListener("DOMContentLoaded", () => {
     backBtn.addEventListener('click', () => {
         const tl = gsap.timeline();
         tl.to(waveParams, { speed: -15.0, opacity: 0.7, duration: 0.5, ease: "power3.in" }, 0);
-        
-        // Terminal mengecil dan pudar
         tl.to(terminalCol, { 
             scale: 0.95,
             opacity: 0, 
@@ -280,7 +275,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }, 0.2);
 
-        // Config Form masuk dari skala kecil
         tl.fromTo(configCol, 
             { scale: 0.95, opacity: 0 }, 
             { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.4)" }, 

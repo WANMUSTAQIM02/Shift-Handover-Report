@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shift Handover Report</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link class="image-icon" rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,6 +17,10 @@
 <body>
 
 <canvas id="bg-canvas"></canvas>
+
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
+<div class="bg-orb orb-3"></div>
 
 <div class="container min-vh-100 d-flex align-items-center position-relative z-1 py-5">
     <div class="row w-100 align-items-center justify-content-between g-5">
@@ -31,13 +35,13 @@
                     <div class="p-2 rounded-circle bg-success bg-opacity-10 text-success-aesthetic">
                         <i class="fa-solid fa-shield-halved"></i>
                     </div>
-                    <span class="fw-medium">Local Environment Processing</span>
+                    <span class="fw-medium text-white">Local Environment Processing</span>
                 </div>
                 <div class="d-flex align-items-center gap-3 text-muted-aesthetic small">
                     <div class="p-2 rounded-circle bg-primary bg-opacity-10 text-primary-aesthetic">
                         <i class="fa-solid fa-bolt"></i>
                     </div>
-                    <span class="fw-medium">Zero-Delay Matrix Analysis</span>
+                    <span class="fw-medium text-white">Zero-Delay Matrix Analysis</span>
                 </div>
             </div>
         </div>
@@ -50,18 +54,18 @@
                         <h6 class="text-uppercase fw-bold text-primary-aesthetic mb-4"><i class="fa-solid fa-sliders me-2"></i> Configuration</h6>
                         <form id="reportForm">
                             <div class="mb-4">
-                                <label class="form-label text-muted-aesthetic small fw-semibold">Report Date</label>
+                                <label class="form-label text-white small fw-semibold">Report Date</label>
                                 <input type="date" id="reportDate" class="form-control glass-input" required>
                             </div>
                             <div class="mb-4">
-                                <label class="form-label text-muted-aesthetic small fw-semibold">Shift Timeline</label>
+                                <label class="form-label text-white small fw-semibold">Shift Timeline</label>
                                 <select id="shiftSelect" class="form-select glass-input" required>
                                     <option value="AM">☀️ Morning (07:00 AM - 06:59 PM)</option>
                                     <option value="PM">🌙 Night (07:00 PM - 06:59 AM)</option>
                                 </select>
                             </div>
                             <div class="row mb-4">
-                                <label class="form-label text-muted-aesthetic small fw-semibold">Duty Engineers</label>
+                                <label class="form-label text-white small fw-semibold">Duty Engineers</label>
                                 <div class="col-6">
                                     <select id="eng1" class="form-select glass-input" required>
                                         <option value="" disabled selected>Select...</option>
@@ -74,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="row mb-4">
-                                <label class="form-label text-muted-aesthetic small fw-semibold">Next Shift Handover</label>
+                                <label class="form-label text-white small fw-semibold">Next Shift Handover</label>
                                 <div class="col-6">
                                     <select id="nextEng1" class="form-select glass-input" required>
                                         <option value="" disabled selected>Select...</option>
@@ -87,7 +91,7 @@
                                 </div>
                             </div>
                             <div class="mb-5">
-                                <label class="form-label text-muted-aesthetic small fw-semibold">ManageEngine Export (.xls)</label>
+                                <label class="form-label text-white small fw-semibold">ManageEngine Export (.xls)</label>
                                 <label for="excelFile" class="file-drop-area w-100 d-flex flex-column align-items-center justify-content-center py-4 text-center cursor-pointer">
                                     <i class="fa-solid fa-cloud-arrow-up text-primary-aesthetic mb-2 fs-3 icon-pulse"></i>
                                     <span class="small text-muted-aesthetic fw-semibold">Click to upload ManageEngine Log</span>
