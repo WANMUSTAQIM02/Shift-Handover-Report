@@ -25,82 +25,88 @@
 <div class="container min-vh-100 d-flex align-items-center position-relative z-1 py-5">
     <div class="row w-100 align-items-center justify-content-between g-5">
         
-        <div class="col-lg-5 text-center text-lg-start pe-lg-4">
+        <div class="col-lg-5 text-center text-lg-start pe-lg-4 z-2">
             <img src="favicon.svg" alt="Shift Handover Logo" class="mb-4 logo-3d" style="width: 90px; height: 90px;">
-            <h1 class="fw-bold text-white mb-3 tracking-tight display-5">Shift Handover</h1>
-            <p class="text-muted-aesthetic fs-5 mb-4">Automated log generator for ManageEngine.</p>
+            <h1 class="fw-bold text-white mb-3 display-4 text-glitch" data-text="Shift Handover">Shift Handover</h1>
+            <p class="text-muted-aesthetic fs-5 mb-4">Automated Tactical Log Matrix.</p>
             
             <div class="d-none d-lg-block mt-5 pt-4 border-top border-secondary border-opacity-25">
                 <div class="d-flex align-items-center gap-3 text-muted-aesthetic small mb-3">
-                    <div class="p-2 rounded-circle bg-success bg-opacity-10 text-success-aesthetic">
+                    <div class="p-2 rounded-circle bg-success bg-opacity-10 text-success-aesthetic shadow-neon-green">
                         <i class="fa-solid fa-shield-halved"></i>
                     </div>
-                    <span class="fw-medium text-white">Local Environment Processing</span>
+                    <span class="fw-medium text-white tracking-wider text-uppercase" style="font-size: 0.75rem;">Local Env Processing</span>
                 </div>
                 <div class="d-flex align-items-center gap-3 text-muted-aesthetic small">
-                    <div class="p-2 rounded-circle bg-primary bg-opacity-10 text-primary-aesthetic">
+                    <div class="p-2 rounded-circle bg-primary bg-opacity-10 text-primary-aesthetic shadow-neon-blue">
                         <i class="fa-solid fa-bolt"></i>
                     </div>
-                    <span class="fw-medium text-white">Zero-Delay Matrix Analysis</span>
+                    <span class="fw-medium text-white tracking-wider text-uppercase" style="font-size: 0.75rem;">Zero-Delay Execution</span>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-6 position-relative" id="mainRow">
+        <div class="col-lg-6 position-relative z-3" id="mainRow">
+            
+            <!-- KEMASKINI PENTING: Global Tactical Alert Box (Nampak di kedua-dua skrin) -->
+            <div id="alertBox" class="d-none"></div>
             
             <div class="view-panel" id="configColumn">
-                <div class="card glass-card border-0 input-card-height">
-                    <div class="card-body p-4 p-md-5">
-                        <h6 class="text-uppercase fw-bold text-primary-aesthetic mb-4"><i class="fa-solid fa-sliders me-2"></i> Configuration</h6>
-                        <form id="reportForm">
+                <div class="card cyber-card border-0 input-card-height" data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-perspective="1000">
+                    <div class="card-body p-4 p-md-5 z-1">
+                        <h6 class="text-uppercase fw-bold text-primary-aesthetic mb-4 border-bottom border-secondary border-opacity-25 pb-3">
+                            <i class="fa-solid fa-crosshairs me-2 fa-spin-pulse"></i> Matrix Config
+                        </h6>
+                        
+                        <form id="reportForm" novalidate>
                             <div class="mb-3">
-                                <label class="form-label text-white small fw-semibold">Report Date</label>
-                                <input type="date" id="reportDate" class="form-control glass-input" required>
+                                <label class="form-label text-white small fw-semibold tracking-wider text-uppercase" style="font-size:0.7rem;">Report Date</label>
+                                <input type="date" id="reportDate" class="form-control glass-input">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label text-white small fw-semibold">Shift Timeline</label>
-                                <select id="shiftSelect" class="form-select glass-input" required>
-                                    <option value="AM">Morning (07:00 AM - 06:59 PM)</option>
-                                    <option value="PM">Night (07:00 PM - 06:59 AM)</option>
+                                <label class="form-label text-white small fw-semibold tracking-wider text-uppercase" style="font-size:0.7rem;">Shift Timeline</label>
+                                <select id="shiftSelect" class="form-select glass-input">
+                                    <option value="AM">☀️ Morning (07:00 AM - 06:59 PM)</option>
+                                    <option value="PM">🌙 Night (07:00 PM - 06:59 AM)</option>
                                 </select>
                             </div>
                             <div class="row mb-3">
-                                <label class="form-label text-white small fw-semibold">Duty Engineers</label>
+                                <label class="form-label text-white small fw-semibold tracking-wider text-uppercase" style="font-size:0.7rem;">Duty Engineers</label>
                                 <div class="col-6">
-                                    <select id="eng1" class="form-select glass-input" required>
+                                    <select id="eng1" class="form-select glass-input">
                                         <option value="" disabled selected>Select...</option>
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <select id="eng2" class="form-select glass-input" required>
+                                    <select id="eng2" class="form-select glass-input">
                                         <option value="" disabled selected>Select...</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="form-label text-white small fw-semibold">Next Shift Handover</label>
+                                <label class="form-label text-white small fw-semibold tracking-wider text-uppercase" style="font-size:0.7rem;">Next Shift Handover</label>
                                 <div class="col-6">
-                                    <select id="nextEng1" class="form-select glass-input" required>
+                                    <select id="nextEng1" class="form-select glass-input">
                                         <option value="" disabled selected>Select...</option>
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <select id="nextEng2" class="form-select glass-input" required>
+                                    <select id="nextEng2" class="form-select glass-input">
                                         <option value="" disabled selected>Select...</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <label class="form-label text-white small fw-semibold">ManageEngine Export (.xls)</label>
+                                <label class="form-label text-white small fw-semibold tracking-wider text-uppercase" style="font-size:0.7rem;">ManageEngine Export (.xls)</label>
                                 <label for="excelFile" class="file-drop-area w-100 d-flex flex-column align-items-center justify-content-center py-4 text-center cursor-pointer">
                                     <i class="fa-solid fa-cloud-arrow-up text-primary-aesthetic mb-2 fs-3 icon-pulse"></i>
-                                    <span class="small text-muted-aesthetic fw-semibold">Click to upload ManageEngine Log</span>
-                                    <input type="file" id="excelFile" class="d-none" accept=".xlsx, .xls" required>
+                                    <span class="small text-muted-aesthetic fw-semibold">Click to upload Log Data</span>
+                                    <input type="file" id="excelFile" class="d-none" accept=".xlsx, .xls">
                                     <div id="fileNameDisplay" class="small text-success-aesthetic mt-2 fw-medium d-none"></div>
                                 </label>
                             </div>
-                            <button type="submit" id="generateBtn" class="btn btn-aesthetic w-100 py-3 fw-bold shadow-lg">
-                                Generate Report <i class="fa-solid fa-arrow-right ms-2"></i>
+                            <button type="submit" id="generateBtn" class="btn btn-aesthetic w-100 py-3 fw-bold text-uppercase tracking-wider">
+                                Execute Report <i class="fa-solid fa-satellite-dish ms-2 fa-spin"></i>
                             </button>
                         </form>
                     </div>
@@ -108,20 +114,20 @@
             </div>
 
             <div class="view-panel d-none" id="terminalColumn">
-                <div class="card glass-card border-0 input-card-height d-flex flex-column">
-                    <div class="terminal-bar d-flex align-items-center justify-content-between px-4 py-3 border-bottom">
+                <div class="card cyber-card border-0 input-card-height d-flex flex-column" data-tilt data-tilt-max="2" data-tilt-speed="400">
+                    <div class="terminal-bar d-flex align-items-center justify-content-between px-4 py-3 border-bottom border-opacity-25 border-secondary z-1">
                         <div class="d-flex gap-2 mac-buttons-wrapper" id="backBtn" title="Back to Configuration">
                             <span class="dot-mac dot-red"></span>
                             <span class="dot-mac dot-yellow"></span>
                             <span class="dot-mac dot-green"></span>
                         </div>
-                        <span class="text-uppercase small tracking-wider text-muted-aesthetic fw-bold" style="font-size: 11px;">System Terminal Output</span>
+                        <span class="text-uppercase small tracking-wider text-primary-aesthetic fw-bold" style="font-size: 11px;">System Output Terminal</span>
                         <button id="copyBtn" class="btn btn-glass-success btn-sm px-4 py-1.5 fw-semibold rounded-pill" disabled>
                             <i class="fa-regular fa-copy me-1"></i> Copy
                         </button>
                     </div>
-                    <div class="card-body p-4 d-flex flex-column flex-grow-1 pt-3 overflow-hidden">
-                        <div id="alertBox" class="d-none"></div>
+                    <div class="card-body p-4 d-flex flex-column flex-grow-1 pt-3 overflow-hidden z-1">
+                        <!-- Kotak alert lama di dalam ini telah dibuang supaya tak bertindih -->
                         <textarea id="outputText" class="form-control glass-textarea flex-grow-1" readonly placeholder="Awaiting execution..."></textarea>
                     </div>
                 </div>
@@ -131,8 +137,12 @@
     </div>
 </div>
 
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
